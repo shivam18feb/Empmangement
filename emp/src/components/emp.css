@@ -1,35 +1,75 @@
-/* Style for form container */
-.form-container {
-  max-width: 400px;
-  margin: 0 auto;
+
+.glassy-background {
+  background-color: rgba(104, 185, 240, 0.603); /* Add transparency to the background */
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 10px;
+  backdrop-filter: blur(10px); /* Apply blur effect to mimic glass */
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+/* styles.css */
+.form-container {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for form labels */
-.form-label {
-  font-weight: bold;
+.form-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-/* Style for form inputs */
-.form-control {
-  margin-bottom: 10px;
-  border-radius: 3px;
-}
-
-/* Style for submit button */
 .submit-btn {
+  width: 100%;
+  margin-top: 20px;
   background-color: #007bff;
-  color: #fff;
   border: none;
-  border-radius: 3px;
-  padding: 10px 20px;
-  cursor: pointer;
 }
 
-/* Hover effect for submit button */
 .submit-btn:hover {
   background-color: #0056b3;
 }
+
+/* Custom input style */
+.custom-input {
+  border: 1px solid #ced4da; /* Add a border */
+  border-radius: 5px; /* Add border radius */
+  padding: 8px 12px; /* Add padding */
+  font-size: 16px; /* Adjust font size */
+}
+
+/* Custom submit button style */
+.submit-btn {
+  margin-top: 20px; /* Add margin to the top of the button */
+  font-size: 18px; /* Adjust font size */
+}
+
+
+
+.animated-input {
+  transition: all 0.3s ease;
+}
+
+.animated-input:focus {
+  transform: scale(1.05);
+  border-color: #4CAF50; /* Example of changing border color on focus */
+}
+
+/* Custom CSS */
+.custom-input-container {
+  position: relative;
+  margin-bottom: 1rem; /* Adjust spacing as needed */
+}
+
+.custom-input-title {
+  position: absolute;
+  top: -0.8rem; /* Adjust vertical position */
+  left: 0.5rem; /* Adjust horizontal position */
+  background-color: white; /* Match background color */
+  padding: 0 0.5rem; /* Adjust padding as needed */
+  color: #6c757d; /* Adjust text color */
+  font-size: 0.8rem; /* Adjust font size as needed */
+  font-weight: bold; /* Adjust font weight as needed */
+}
+
