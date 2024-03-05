@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "ag-grid-community/styles/ag-theme-balham.css";
+import { Form, Button, Container, Row, Col, Table } from "react-bootstrap";
 import img from '../assets/ico.svg';
 import "./emp.css";
 
@@ -18,8 +14,6 @@ const EmployeeForm = () => {
   });
   const [employees, setEmployees] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(11); // Number of items to display per page
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -120,40 +114,6 @@ const EmployeeForm = () => {
     }
   };
 
-  const columnDefs = [
-    { headerName: "S.no", valueGetter: "node.rowIndex + 1", sortable: false },
-    { headerName: "First Name", field: "firstname" },
-    { headerName: "Last Name", field: "lastname" },
-    { headerName: "Email", field: "email" },
-    { headerName: "Department", field: "department" },
-    { headerName: "Position", field: "position" },
-    { headerName: "Salary", field: "salary" },
-    {
-      headerName: "Actions",
-      field: "actions",
-      width: 150,
-      cellRendererFramework: (params) => (
-        <div>
-          <Button
-            variant="info"
-            size="sm"
-            onClick={() => handleEdit(params.data)}
-            style={{ marginRight: "5px" }}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={() => handleDelete(params.data.id)}
-          >
-            Delete
-          </Button>
-        </div>
-      ),
-    },
-  ];
-
   useEffect(() => {
     fetchEmployees();
   }, []);
@@ -164,17 +124,12 @@ const EmployeeForm = () => {
         <Col md={6}>
           <div className="form-container">
             <Form onSubmit={handleSubmit} className="custom-form">
-            <img src={img} alt="React Image" className="w-25 mx-auto d-block" /> 
-
+              <img src={img} alt="React Image" className="w-25 mx-auto d-block" /> 
               <fieldset>
                 <legend className="form-title">
-              
                   <strong>Employees Management System</strong>
                 </legend>
-                <Form.Group
-                  controlId="formfirstname"
-                  className="custom-input-container"
-                >
+                <Form.Group controlId="formfirstname" className="custom-input-container">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
                     className="custom-input animated-input"
@@ -186,10 +141,7 @@ const EmployeeForm = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group
-                  controlId="formlastname"
-                  className="custom-input-container"
-                >
+                <Form.Group controlId="formlastname" className="custom-input-container">
                   <Form.Label>Last Name</Form.Label>
                   <Form.Control
                     className="custom-input animated-input"
@@ -201,10 +153,7 @@ const EmployeeForm = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group
-                  controlId="formEmail"
-                  className="custom-input-container"
-                >
+                <Form.Group controlId="formEmail" className="custom-input-container">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     className="custom-input animated-input"
@@ -216,10 +165,7 @@ const EmployeeForm = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group
-                  controlId="formDepartment"
-                  className="custom-input-container"
-                >
+                <Form.Group controlId="formDepartment" className="custom-input-container">
                   <Form.Label>Department</Form.Label>
                   <Form.Control
                     className="custom-input animated-input"
@@ -231,10 +177,7 @@ const EmployeeForm = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group
-                  controlId="formPosition"
-                  className="custom-input-container"
-                >
+                <Form.Group controlId="formPosition" className="custom-input-container">
                   <Form.Label>Position</Form.Label>
                   <Form.Control
                     className="custom-input animated-input"
@@ -246,10 +189,7 @@ const EmployeeForm = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group
-                  controlId="formSalary"
-                  className="custom-input-container"
-                >
+                <Form.Group controlId="formSalary" className="custom-input-container">
                   <Form.Label>Salary</Form.Label>
                   <Form.Control
                     className="custom-input animated-input"
@@ -270,22 +210,54 @@ const EmployeeForm = () => {
         </Col>
       </Row>
 
-      <Container fluid ={{ marginRight: "5px" }}
-          >
+      <Container fluid>
         <Row className="justify-content-center mt-4">
           <Col md={10}>
             <h2 className="text-center mb-4">Employee List</h2>
-            <div
-              className="ag-theme-balham text-center mb-4"
-              style={{ height: 400 }}
-            >
-              <AgGridReact
-                columnDefs={columnDefs}
-                rowData={employees}
-                pagination={true}
-                paginationPageSize={itemsPerPage}
-              />
-            </div>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>S.no</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Position</th>
+                  <th>Salary</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {employees.map((employee, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{employee.firstname}</td>
+                    <td>{employee.lastname}</td>
+                    <td>{employee.email}</td>
+                    <td>{employee.department}</td>
+                    <td>{employee.position}</td>
+                    <td>{employee.salary}</td>
+                    <td>
+                      <Button
+                        variant="info"
+                        size="sm"
+                        onClick={() => handleEdit(employee)}
+                        style={{ marginRight: "5px" }}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => handleDelete(employee.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </Col>
         </Row>
       </Container>
